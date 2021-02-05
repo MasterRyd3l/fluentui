@@ -1,9 +1,18 @@
+pr: none
+trigger: none
+
 schedules:
   - cron: 0 3 * * *
     branches:
       include:
         # todo change to master when merge
         - test-release2
+
+resources:
+  repositories:
+    - repository: self
+      type: git
+      ref: master
 
 variables:
   - group: 'Github and NPM secrets'
