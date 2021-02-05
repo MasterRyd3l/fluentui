@@ -151,7 +151,7 @@ jobs:
         inputs:
           versionSpec: 12.x
 
-      - task: YarnInstaller@3
+      - task: YarnInstaller@0
         displayName: Use Yarn 1.19.x
         inputs:
           versionSpec: 1.19.x
