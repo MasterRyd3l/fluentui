@@ -103,6 +103,16 @@ task('build:docs:html', () => src(paths.docsSrc('404.html')).pipe(dest(paths.doc
 
 task('build:docs:images', () => src(`${paths.docsSrc()}/**/*.{png,jpg,gif}`).pipe(dest(paths.docsDist())));
 
+task('build:docs:nightly:packagejson', done => {
+  if (process.env.NIGHTLYRELEASE === 'true') {
+    const docPackageJsonPath = path.resolve(findGitRoot(), 'packages', 'fluentui', 'docs', 'package.json');
+    const docPackageJson = require(docPackageJsonPath);
+    docPackageJson.version = 'nightly';
+    fs.writeFileSync(docPackageJsonPath, JSON.stringify(docPackageJson, null, 2));
+  }
+  done();
+});
+
 task('build:docs:toc', () =>
   src(markdownSrc, { since: lastRun('build:docs:toc') }).pipe(
     cacheNonCi(gulpDoctoc(), {
@@ -130,7 +140,10 @@ task(
   parallel(
     'build:docs:toc',
     'build:docs:schema',
-    series('clean:docs', parallel('build:docs:json', 'build:docs:html', 'build:docs:images')),
+    series(
+      'clean:docs',
+      parallel('build:docs:json', 'build:docs:html', 'build:docs:images', 'build:docs:nightly:packagejson'),
+    ),
   ),
 );
 
