@@ -2,7 +2,8 @@ schedules:
   - cron: 0 3 * * *
     branches:
       include:
-        - master
+        # todo change to master when merge
+        - test-release2
 
 variables:
   - group: 'Github and NPM secrets'
