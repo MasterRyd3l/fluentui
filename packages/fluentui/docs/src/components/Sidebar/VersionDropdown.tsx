@@ -52,7 +52,7 @@ export function VersionDropdown(props: { width: number }) {
   const onChange = (_, data: DropdownProps) => {
     const versionInPath = window.location.pathname.split('/')[1];
     if (versionInPath === currentVersion || versionInPath === 'nightly') {
-      const newPath = window.location.pathname.replace(currentVersion, data.value as string);
+      const newPath = window.location.pathname.replace(versionInPath, data.value as string);
       window.location.pathname = newPath;
     } else {
       window.location.pathname = `/${data.value}`;
