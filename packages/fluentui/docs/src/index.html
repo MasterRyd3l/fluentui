@@ -63,6 +63,12 @@
 
       function redirectToDocsite(manifest) {
         const fluentuiDocsiteVersions = getAvailableVersionsFromManifest(manifest);
+        if (window.location.pathname.startsWith('/nightly')) {
+          setRedirectInSessionStorage(window.location.href);
+          window.location.pathname = '/nightly';
+          return;
+        }
+
         if (!sessionStorage.redirect) {
           window.location.pathname = '/' + fluentuiDocsiteVersions[0];
           return;
