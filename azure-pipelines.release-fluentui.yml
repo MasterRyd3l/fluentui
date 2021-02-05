@@ -4,12 +4,6 @@ schedules:
       include:
         - master
 
-resources:
-  repositories:
-    - repository: self
-      type: git
-      ref: master
-
 variables:
   - group: 'Github and NPM secrets'
   - name: docsiteVersion
