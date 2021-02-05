@@ -50,8 +50,7 @@ export function VersionDropdown(props: { width: number }) {
   // We make assumptions about routing
   // https://<domain>/<version> should be the basename for each docsite in a multi version scenario
   const onChange = (_, data: DropdownProps) => {
-    const versionInPath = window.location.pathname.split('/')[1];
-    if (versionInPath === currentVersion || versionInPath === 'nightly') {
+    if (window.location.pathname.split('/')[1] === currentVersion) {
       const newPath = window.location.pathname.replace(currentVersion, data.value as string);
       window.location.pathname = newPath;
     } else {
@@ -64,7 +63,7 @@ export function VersionDropdown(props: { width: number }) {
       variables={{ width: `${props.width}px` }}
       items={versions}
       onChange={onChange}
-      value={window.location.pathname.split('/')[1] === 'nightly' ? 'nightly' : currentVersion}
+      value={currentVersion}
       aria-label="Choose fluent version"
     />
   );
